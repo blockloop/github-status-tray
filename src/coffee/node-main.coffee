@@ -6,7 +6,7 @@ moment = require('moment')
 exports.exit = ->
   exports.tray.remove()
   exports.tray = null
-  @gui.App.quit()
+  exports.gui.App.quit()
 
 
 # show a window by name
@@ -33,9 +33,9 @@ exports.getWindow = (name) -> @windows[name]
 # if there is no name provided we get the main
 exports.newWindow = (name, options) ->
   open = window.open("views/#{name}.html", options) if name
-  win = @gui.Window.get(open)
+  win = exports.gui.Window.get(open)
   @windows[name] = win
-  win.showDevTools()
+  # win.showDevTools()
 
 
 exports.setTrayIcon = (level)->
@@ -45,15 +45,15 @@ exports.setTrayIcon = (level)->
 exports.getIcon = (level) ->
   # throw new Error('args:level must be 0-2') if level > 2 or level < 0
   return "app/imgs/status-icon-green.png" if level == 0
-  return "app/imgs/status-icon-orange.png" if level == 0
-  return "app/imgs/status-icon-red.png" if level == 0
+  return "app/imgs/status-icon-orange.png" if level == 1
+  return "app/imgs/status-icon-red.png" if level == 2
 
 
 exports.setMenuItem = (opts)->
   throw new Error('args:opts is required') unless opts
   old = _(exports.tray.menu.items).findIndex label: opts.label if opts.label
   exports.tray.menu.items.removeAt old if old
-  exports.tray.menu.items.insert(new @gui.MenuItem opts, old or 0)
+  exports.tray.menu.items.insert(new exports.gui.MenuItem opts, old or 0)
 
 
 exports.updateStatus = ->
@@ -80,33 +80,33 @@ exports.updateStatus = ->
 # since the script runs before the DOM we cannot
 # load nw.gui so wait for nwService to initialize it
 exports.init = ()->
-  return if @gui # prevent multiple calls
-  @gui = global.window.nwDispatcher.requireNwGui()
+  return if exports.gui # prevent multiple calls
+  exports.gui = global.window.nwDispatcher.requireNwGui()
   @windows = {}
 
   # create main window
   exports.newWindow()
 
-  exports.tray = new @gui.Tray
+  exports.tray = new exports.gui.Tray
     icon: exports.getIcon 0
 
-  @menu = new @gui.Menu()
+  @menu = new exports.gui.Menu()
 
   menuItems = [
-    new @gui.MenuItem
+    new exports.gui.MenuItem
       type: 'normal'
       label: 'Refresh'
       click: -> exports.updateStatus()
   ,
-    new @gui.MenuItem
+    new exports.gui.MenuItem
       type: 'normal'
       label: 'Settings'
       click: -> exports.showWindow 'settings'
   ,
-    new @gui.MenuItem
+    new exports.gui.MenuItem
       type: 'separator'
   ,
-    new @gui.MenuItem
+    new exports.gui.MenuItem
       type: 'normal'
       label: 'Exit'
       click: exports.exit
