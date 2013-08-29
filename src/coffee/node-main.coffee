@@ -67,7 +67,7 @@ exports.updateStatus = ->
       @currentStatus = body.status
       # exports.notify icon, "Github status change!", currentMessage
       exports.tray.icon = icon
-    now = moment().format('HH-mm-ss MM-dd')
+    now = moment().format('MM-DD HH:mm')
     exports.tray.tooltip = "#{now}: #{@currentMessage}"
 
   request.get
