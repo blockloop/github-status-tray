@@ -1,0 +1,12 @@
+extends main-layout
+
+block head
+  link(rel='stylesheet', type='text/css', href='styles/settings.css')
+
+block content
+  form.form-horizontal(role='form',ng-controller='settingsCtrl',ng-submit='submit($scope)')
+    .form-group
+      label.col-xs-2.control-label(for='dropboxUri') Dropbox Path
+      .col-xs-10
+        input.form-control#dropboxUri 
+        //(ng-model='dropboxUri', required)

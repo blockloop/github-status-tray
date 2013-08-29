@@ -1,0 +1,8 @@
+{
+  "name": "github-status-tray",
+  "dependencies": {
+    "angular-unstable": "~1.1.5",
+    "bootstrap": "~3.0.0",
+    "jquery": "~2.0.3"
+  }
+}

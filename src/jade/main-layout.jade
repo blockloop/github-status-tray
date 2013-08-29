@@ -1,0 +1,19 @@
+!!! 5
+html(ng-app='github-status-tray')
+  head
+    base(href='../')
+    link(rel='stylesheet', type='text/css', href='../bower_components/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', type='text/css', href='styles/app.css')
+    block head
+  body
+    block nav
+    .container
+      #content
+        block content
+
+    script(src='../bower_components/jquery/jquery.min.js')
+    script(src='../bower_components/bootstrap/dist/js/bootstrap.min.js')
+    script(src='../bower_components/angular-unstable/angular.min.js')
+    script(src='scripts/main.js')
+    script(src='scripts/site.js')
+
