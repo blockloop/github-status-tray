@@ -44,22 +44,17 @@ exports.setTrayIcon = (level)->
 
 exports.getIcon = (level) ->
   # throw new Error('args:level must be 0-2') if level > 2 or level < 0
-  return "app/imgs/status-icon-green.png" if level == 0
-  return "app/imgs/status-icon-orange.png" if level == 1
-  return "app/imgs/status-icon-red.png" if level == 2
-
-
-exports.setMenuItem = (opts)->
-  throw new Error('args:opts is required') unless opts
-  old = _(exports.tray.menu.items).findIndex label: opts.label if opts.label
-  exports.tray.menu.items.removeAt old if old
-  exports.tray.menu.items.insert(new exports.gui.MenuItem opts, old or 0)
+  switch level
+    when 0 then return "app/imgs/status-icon-green.png"
+    when 1 then return "app/imgs/status-icon-orange.png"
+    when 2 then return "app/imgs/status-icon-red.png"
 
 
 exports.updateStatus = ->
   cb = (err, resp, body) ->
     console.log 'status updated'
     throw err if err #XXX remove this when deploying and just console.error
+
     levels = "good": 0, "minor": 1, "major": 2
     icon = exports.getIcon(levels[body.status])
 
@@ -83,7 +78,7 @@ exports.updateStatus = ->
 # initialize the application
 # since the script runs before the DOM we cannot
 # load nw.gui so wait for nwService to initialize it
-exports.init = ()->
+exports.init = ->
   return if exports.gui # prevent multiple calls
   exports.gui = global.window.nwDispatcher.requireNwGui()
   @windows = {}
