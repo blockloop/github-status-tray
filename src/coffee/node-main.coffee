@@ -60,15 +60,19 @@ exports.updateStatus = ->
   cb = (err, resp, body) ->
     console.log 'status updated'
     throw err if err #XXX remove this when deploying and just console.error
-    level = if body.status is "good" then 0 else 2
-    icon = exports.getIcon level
+    levels = "good": 0, "minor": 1, "major": 2
+    icon = exports.getIcon(levels[body.status])
+
+    # TODO IMPLEMENT notify -- don't use @
+    # need to use an external variable when notifications are implemented
     if @currentMessage isnt body.body or @currentStatus isnt body.status
       @currentMessage = body.body
       @currentStatus = body.status
       # exports.notify icon, "Github status change!", currentMessage
       exports.tray.icon = icon
-    now = moment().format('MM-DD HH:mm')
-    exports.tray.tooltip = "#{now}: #{@currentMessage}"
+
+    now = moment().format('M/DD h:mma')
+    exports.tray.tooltip = "#{now}\n#{@currentMessage}"
 
   request.get
     url: "https://status.github.com/api/last-message.json"
