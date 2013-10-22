@@ -12,18 +12,22 @@ exports.exit = @exit = =>
 # show a window by name
 exports.showWindow = @showWindow = (name, options) =>
   name ?= 'settings'
-  win = @getWindow(name) or @newWindow(name, options)
+  win = @getWindow(name)
+
+  if !win
+    win = @newWindow(name, options)
+    win.on 'close', win.hide
+    win.on 'minimize', win.hide
+    win.on 'blur', win.hide
+
   win.open() if win.closed
   win.show()
   win.focus()
-  win.on 'close', win.hide
-  win.on 'minimize', win.hide
-  win.on 'blur', win.hide
   return win
 
 
 # get a window by name
-exports.getWindow = @getWindow  = (name) => @windows[name]
+exports.getWindow = @getWindow = (name) => @windows[name]
 
 
 # create a new window
