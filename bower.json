@@ -2,6 +2,7 @@
   "name": "github-status-tray",
   "private": true,
   "dependencies": {
-    "angular-unstable": "~1.1.5"
+    "angular-unstable": "~1.1.5",
+    "semantic": "~0.6.5"
   }
 }
