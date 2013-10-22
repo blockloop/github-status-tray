@@ -3,7 +3,7 @@
         grunt.initConfig({
             watch: {
                 stylus: {
-                    files: 'src/**',
+                    files: 'src/**/*',
                     tasks: ['exec:harp']
                 },
             },
@@ -14,8 +14,8 @@
                     stderr: true
                 },
                 harp: {
-                    command: 'harp compile src app',
-                    stdout: false,
+                    command: 'rm -rf app && harp compile src app',
+                    stdout: true,
                     stderr: true
                 }
             },

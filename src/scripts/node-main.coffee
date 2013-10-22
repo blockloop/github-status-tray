@@ -44,7 +44,7 @@ exports.setTrayIcon = @setTrayIcon = (level)=>
 
 
 exports.getIcon = @getIcon = (level) =>
-  # throw new Error('args:level must be 0-2') if level > 2 or level < 0
+  throw new Error('args:level must be 0-2') if level > 2 or level < 0
   switch level
     when 0 then return "app/imgs/status-icon-green.png"
     when 1 then return "app/imgs/status-icon-orange.png"

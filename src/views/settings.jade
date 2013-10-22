@@ -3,8 +3,11 @@ extends main-layout
 block head
   link(rel='stylesheet', type='text/css', href='styles/settings.css')
 
+block scripts
+  script(src='scripts/ctrls/settingsCtrl.js')
+
 block content
-  .ui.form.segment
+  .ui.form.segment(ng-controller='settingsCtrl')
     .field
         label Username
         .ui.left.labeled.icon.input
