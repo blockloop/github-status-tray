@@ -1,5 +1,5 @@
 {
-  "name": "quuickboxnote",
+  "name": "quickboxnote",
   "main": "app/views/settings.html",
   "version": "0.0.1",
   "node-main": "app/scripts/node-main.js",

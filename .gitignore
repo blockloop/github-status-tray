@@ -1,7 +1,4 @@
 node_modules
-bower_components
-app/scripts
-app/styles
-app/views
+app/
 test
 nohup.out
