@@ -4,15 +4,22 @@ This application is intended to give developers the ability to continuously moni
 
 As of now the status refreshes every 10 minutes and there are no settings, but check the [TODO below](#todo-what-does-not-work). You can manually refresh if you want to by right clicking the tray icon and clicking 'Refresh'.
 
+## Requirements
+
+- [harpjs][] (npm i -g harp)
+- [gruntjs][] (npm i -g grunt-cli)
+- [bower][] (npm i -g bower)
+
 ## Usage
 
 This app is written in [node-webkit](https://github.com/rogerwang/node-webkit). There aren't currently any compiled executables but running this application is as simple as:
 
 ```bash
-$ git clone git@github.com:brettof86/github-status-tray.git
-$ cd github-status-tray
-$ npm install
-$ nw .
+git clone git@github.com:brettof86/github-status-tray.git && cd github-status-tray
+bower install
+npm install
+grunt compile
+nw .
 ```
 
 Of course this assumes you have node-webkit installed and [nw aliased to node-webkit][how-to-alias-nw].
@@ -24,13 +31,12 @@ If you're unfamiliar with node-webkit note that **this application will eventual
 - Refreshes every 10 minutes
 - Shows a timestamp of the last refresh
 - Shows red/orange/green status in your system tray
-- ~~Notifies via custom notification (no growl yet, see below) when the status has changed~~
 - Shows the current message on the top of the github status page
 
 
 ## TODO (What does NOT work)
 
-- Organize code
+- ~~Organize code~~
 - Testing
 - Make a builder for platform specific executables (exe/app/sh)
 - Give a 'refreshing' indicator when the application is refreshing
@@ -57,3 +63,6 @@ If you're unfamiliar with node-webkit note that **this application will eventual
 
 
   [how-to-alias-nw]: https://github.com/rogerwang/node-webkit/wiki/How-to-run-apps 
+  [harpjs]: http://harpjs.com/
+  [gruntjs]: http://gruntjs.com/
+  [bower]: http://bower.io/
