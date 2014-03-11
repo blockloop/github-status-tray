@@ -12,8 +12,6 @@ As of now the status refreshes every 10 minutes and there are no settings, but c
 
 ## Usage
 
-This app is written in [node-webkit](https://github.com/rogerwang/node-webkit). There aren't currently any compiled executables but running this application is as simple as:
-
 ```bash
 git clone git@github.com:brettof86/github-status-tray.git && cd github-status-tray
 bower install
@@ -23,8 +21,6 @@ nw .
 ```
 
 Of course this assumes you have node-webkit installed and [nw aliased to node-webkit][how-to-alias-nw].
-
-If you're unfamiliar with node-webkit note that **this application will eventually not care if you have node-webkit installed or not** (it will be bundled into the executable for each platform)
 
 ## What Works
 
