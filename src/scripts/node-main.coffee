@@ -44,11 +44,11 @@ exports.setTrayIcon = @setTrayIcon = (level)=>
 
 
 exports.getIcon = @getIcon = (level) =>
-  throw new Error('args:level must be 0-2') if level > 2 or level < 0
-  switch level
-    when 0 then return "app/imgs/status-icon-green.png"
-    when 1 then return "app/imgs/status-icon-orange.png"
-    when 2 then return "app/imgs/status-icon-red.png"
+  if level is "minor"
+    return "app/imgs/status-icon-orange.png"
+  if level is "major"
+    return "app/imgs/status-icon-red.png"
+  return "app/imgs/status-icon-green.png"
 
 
 exports.updateStatus = @updateStatus = =>
@@ -56,8 +56,7 @@ exports.updateStatus = @updateStatus = =>
     console.log 'status updated'
     throw err if err #XXX remove this when deploying and just console.error
 
-    levels = "good": 0, "minor": 1, "major": 2
-    icon = @getIcon(levels[body.status])
+    icon = @getIcon(body.status)
 
     # TODO IMPLEMENT notify -- don't use @
     # need to use an external variable when notifications are implemented
@@ -70,10 +69,10 @@ exports.updateStatus = @updateStatus = =>
     now = moment().format('M/DD h:mmA')
     @tray.tooltip = "#{now}\n#{@currentMessage}"
 
-  request.get
+  request.get({
     url: "https://status.github.com/api/last-message.json"
     json: true
-  , cb
+  }, cb)
 
 
 # initialize the application
@@ -88,7 +87,7 @@ exports.init = @init = =>
   @newWindow()
 
   @tray = new @gui.Tray
-    icon: @getIcon 0
+    icon: @getIcon("good")
 
   @menu = new @gui.Menu()
 
